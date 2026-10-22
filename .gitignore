@@ -1,0 +1,16 @@
+node_modules/
+data/
+dist/
+functions/lib/
+.DS_Store
+*.xcuserdata/
+xcuserdata/
+.firebase/
+ios/build/
+GoogleService-Info.plist
+google-services.json
+firebase-config.json
+.secret.local
+*-ga4-reader.json
+service-account*.json
+*firebase-adminsdk*.json

@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // The board and the season clock are public to read.
+    // Scores are written only by the Cloud Function, which uses the Admin SDK.
+    match /meta/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /seasons/{seasonId}/board/{uid} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /players/{uid} {
+      allow read, write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

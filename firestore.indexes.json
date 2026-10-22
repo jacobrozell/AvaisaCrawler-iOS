@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "board",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "depth", "order": "DESCENDING" },
+        { "fieldPath": "ticks", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
