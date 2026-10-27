@@ -1,5 +1,5 @@
-import AuthenticationServices
-import CryptoKit
+// import AuthenticationServices
+// import CryptoKit
 import SwiftUI
 import UserNotifications
 import WebKit
@@ -145,10 +145,8 @@ final class BundleFiles: NSObject, WKURLSchemeHandler {
     }
 }
 
-final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+final class Bridge: NSObject, WKScriptMessageHandler {
     weak var webView: WKWebView?
-    private var rawNonce = ""
-    private var auth: ASAuthorizationController?
     private let haptic = UIImpactFeedbackGenerator(style: .light)
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -156,8 +154,8 @@ final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerD
         switch type {
         case "haptic":
             haptic.impactOccurred()
-        case "apple":
-            startApple()
+        // case "apple":
+        //     startApple()
         case "notify":
             schedule(inMs: body["inMs"] as? Double ?? 0)
         case "cancel-notify":
@@ -167,6 +165,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerD
         }
     }
 
+    /*
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         webView?.window ?? ASPresentationAnchor()
     }
@@ -194,6 +193,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerD
         auth = controller
         controller.performRequests()
     }
+    */
 
     private func schedule(inMs: Double) {
         let seconds = max(1, inMs / 1000)
@@ -206,6 +206,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerD
         UNUserNotificationCenter.current().add(request)
     }
 
+    /*
     private func randomNonce(length: Int = 32) -> String {
         var bytes = [UInt8](repeating: 0, count: length)
         _ = SecRandomCopyBytes(kSecRandomDefault, length, &bytes)
@@ -215,4 +216,5 @@ final class Bridge: NSObject, WKScriptMessageHandler, ASAuthorizationControllerD
     private func sha256(_ text: String) -> String {
         SHA256.hash(data: Data(text.utf8)).map { String(format: "%02x", $0) }.joined()
     }
+    */
 }
